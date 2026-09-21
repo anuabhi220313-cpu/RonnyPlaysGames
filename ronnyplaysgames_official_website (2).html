@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RonnyPlaysGames | Official</title>
+<style>
+:root {
+  --bg: #080a10;
+  --card: rgba(17, 22, 34, 0.75);
+  --card-border: rgba(255, 255, 255, 0.12);
+  --line: #293246;
+  --text: #f7f8ff;
+  --muted: #a9afbf;
+  --blue: #8ec5ff;
+  --pink: #f3b5dc;
+  --lav: #c5b5ff;
+  --mint: #a9e8d2;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  color: var(--text);
+  font-family: Inter, Arial, sans-serif;
+  background-color: var(--bg);
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* 
+  ULTRA-OPTIMIZED PASTEL BACKGROUND 
+  Uses opacity keyframes on GPU-accelerated layers to prevent frame drops/lag.
+*/
+.bg-glow-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+  transform: translateZ(0); /* Force GPU acceleration */
+}
+
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  will-change: opacity;
+  transform: translateZ(0);
+}
+
+.glow-1 {
+  width: 600px;
+  height: 600px;
+  top: -150px;
+  left: -150px;
+  background: radial-gradient(circle, rgba(197, 181, 255, 0.45) 0%, rgba(142, 197, 255, 0.2) 60%, transparent 100%);
+  animation: fadePastel1 10s infinite alternate ease-in-out;
+}
+
+.glow-2 {
+  width: 650px;
+  height: 650px;
+  bottom: -200px;
+  right: -150px;
+  background: radial-gradient(circle, rgba(169, 232, 210, 0.45) 0%, rgba(243, 181, 220, 0.25) 60%, transparent 100%);
+  animation: fadePastel2 10s infinite alternate ease-in-out;
+}
+
+@keyframes fadePastel1 {
+  0% { opacity: 0.3; transform: scale(1) translateZ(0); }
+  50% { opacity: 0.85; transform: scale(1.08) translateZ(0); }
+  100% { opacity: 0.4; transform: scale(0.95) translateZ(0); }
+}
+
+@keyframes fadePastel2 {
+  0% { opacity: 0.7; transform: scale(1) translateZ(0); }
+  50% { opacity: 0.25; transform: scale(0.92) translateZ(0); }
+  100% { opacity: 0.8; transform: scale(1.1) translateZ(0); }
+}
+
+/* Layout and Components */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.wrap {
+  width: min(1120px, 92%);
+  margin: auto;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(8, 10, 16, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.nav {
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 900;
+}
+
+.brand img {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(142, 197, 255, 0.35);
+}
+
+.brand span span {
+  background: linear-gradient(90deg, var(--blue), var(--pink));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+nav {
+  display: flex;
+  gap: 5px;
+}
+
+nav a {
+  padding: 10px 13px;
+  color: #b9c0cf;
+  border-radius: 9px;
+  font-size: 14px;
+  transition: background 0.2s, color 0.2s;
+}
+
+nav a:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+}
+
+.btn {
+  display: inline-block;
+  padding: 12px 17px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 11px;
+  background: rgba(17, 23, 34, 0.8);
+  font-weight: 750;
+  font-size: 14px;
+  transition: transform 0.2s, border-color 0.2s;
+  backdrop-filter: blur(5px);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  border-color: rgba(142, 197, 255, 0.4);
+}
+
+.primary {
+  background: linear-gradient(135deg, var(--blue), var(--pink));
+  color: #12131a;
+  border: 0;
+}
+
+/* Sections */
+.hero {
+  text-align: center;
+  padding: 72px 0 40px;
+}
+
+.hero img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid #20283a;
+  box-shadow: 0 0 50px rgba(158, 140, 255, 0.2);
+}
+
+h1 {
+  font-size: clamp(42px, 7vw, 76px);
+  letter-spacing: -3px;
+  line-height: .95;
+  margin: 24px 0 14px;
+}
+
+.hero p {
+  max-width: 680px;
+  margin: auto;
+  color: var(--muted);
+  line-height: 1.7;
+  font-size: 17px;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 25px 0 0;
+}
+
+section {
+  padding: 42px 0;
+}
+
+h2 {
+  font-size: 30px;
+  margin: 0 0 7px;
+}
+
+.sub {
+  color: var(--muted);
+  margin: 0 0 20px;
+}
+
+.feature {
+  display: grid;
+  grid-template-columns: 1.3fr .7fr;
+  gap: 14px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 18px;
+  padding: 23px;
+  box-shadow: 0 12px 35px rgba(0,0,0,0.25);
+  backdrop-filter: blur(8px);
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.feature .card {
+  min-height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.kicker {
+  color: var(--lav);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 800;
+}
+
+.cards, .social {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.card .emoji {
+  font-size: 40px;
+  margin-bottom: 8px;
+  display: inline-block;
+}
+
+.card h3 {
+  margin: 10px 0 7px;
+}
+
+.card p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.social .card:nth-child(1) { border-color: rgba(142, 197, 255, 0.25); }
+.social .card:nth-child(2) { border-color: rgba(243, 181, 220, 0.25); }
+.social .card:nth-child(3) { border-color: rgba(197, 181, 255, 0.25); }
+
+.social .card a {
+  color: var(--blue);
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.badge-off {
+  display: inline-block;
+  padding: 4px 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 10px;
+}
+
+/* Custom Blue Roblox Logo SVG Styling */
+.roblox-logo-svg {
+  width: 42px;
+  height: 42px;
+  fill: #00a2ff;
+  filter: drop-shadow(0 0 10px rgba(0, 162, 255, 0.5));
+}
+
+footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 30px 0;
+  text-align: center;
+  color: #777f91;
+  font-size: 13px;
+}
+
+@media (max-width: 760px) {
+  nav { display: none; }
+  .cards, .social, .feature { grid-template-columns: 1fr; }
+  h1 { letter-spacing: -2px; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-glow-container">
+  <div class="glow-orb glow-1"></div>
+  <div class="glow-orb glow-2"></div>
+</div>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#">
+      <img src="https://yt3.ggpht.com/tRyJhOB3OF93Gnrm4NWXMhoRawKeWyr37sOBH7vX2RIN2o48TUwwH8t4BFnQJjp9Z1N9XOVG=s176-c-k-c0x00ffffff-no-rj" alt="RonnyPlaysGames logo">
+      <span>Ronny<span>PlaysGames</span></span>
+    </a>
+    <nav>
+      <a href="#videos">Videos</a>
+      <a href="#games">Games</a>
+      <a href="#community">Community</a>
+      <a href="#about">About</a>
+    </nav>
+    <a class="btn primary" href="https://www.youtube.com/@RonnyPlaysGames165" target="_blank">▶ Subscribe</a>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- Hero Section -->
+  <section class="hero" id="about">
+    <img src="https://yt3.ggpht.com/tRyJhOB3OF93Gnrm4NWXMhoRawKeWyr37sOBH7vX2RIN2o48TUwwH8t4BFnQJjp9Z1N9XOVG=s176-c-k-c0x00ffffff-no-rj" alt="RonnyPlaysGames channel logo">
+    <h1>RonnyPlaysGames</h1>
+    <p>Welcome to the official RonnyPlaysGames website. Gaming videos, funny moments, challenges and more — all in one place.</p>
+    <div class="actions">
+      <a class="btn primary" href="https://www.youtube.com/@RonnyPlaysGames165" target="_blank">▶ Visit YouTube</a>
+      <a class="btn" href="#videos">Latest Videos ↓</a>
+    </div>
+  </section>
+
+  <!-- Videos Section -->
+  <section id="videos">
+    <h2>🎬 Videos</h2>
+    <p class="sub">Watch the latest RonnyPlaysGames content.</p>
+    <div class="feature">
+      <div class="card">
+        <span class="kicker">YouTube Channel</span>
+        <h3>Watch RonnyPlaysGames</h3>
+        <p>Open the channel to see your latest uploads, Shorts and gaming videos.</p>
+        <a class="btn primary" style="width:max-content" href="https://www.youtube.com/@RonnyPlaysGames165/videos" target="_blank">Watch Videos</a>
+      </div>
+      <div class="card">
+        <span class="kicker">Don't miss out</span>
+        <h3>🔔 Subscribe</h3>
+        <p>Subscribe and turn on notifications for new uploads.</p>
+        <a class="btn" style="width:max-content" href="https://www.youtube.com/@RonnyPlaysGames165?sub_confirmation=1" target="_blank">Subscribe</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Games Section -->
+  <section id="games">
+    <h2>🎮 Games</h2>
+    <p class="sub">Your gaming world.</p>
+    <div class="cards">
+      <!-- Blue Roblox Card -->
+      <div class="card">
+        <div class="emoji">
+          <svg class="roblox-logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21.5 0L100 21.5L78.5 100L0 78.5L21.5 0ZM40.5 35.8L35.8 59.5L59.5 64.2L64.2 40.5L40.5 35.8Z"/>
+          </svg>
+        </div>
+        <h3>Roblox</h3>
+        <p>Roblox gameplay, challenges and funny moments.</p>
+      </div>
+
+      <!-- GTA Vice City Card -->
+      <div class="card">
+        <div class="emoji">
+          <svg width="46" height="42" viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="viceGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#ff71ce" />
+                <stop offset="100%" stop-color="#01cdfe" />
+              </linearGradient>
+            </defs>
+            <path d="M10 65 L25 15 L50 15 L40 40 L65 40 L55 65 Z" fill="url(#viceGrad)" filter="drop-shadow(0px 0px 6px #ff71ce)" />
+            <text x="32" y="75" fill="#01cdfe" font-family="sans-serif" font-weight="900" font-size="22">VC</text>
+          </svg>
+        </div>
+        <h3>GTA Vice City</h3>
+        <p>Retro action, driving, missions, and Vice City chaos.</p>
+      </div>
+
+      <!-- More Games Card -->
+      <div class="card">
+        <div class="emoji">🎮</div>
+        <h3>More Games</h3>
+        <p>Add your other games here whenever you want.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Community Section -->
+  <section id="community">
+    <h2>🌐 Community</h2>
+    <p class="sub">Follow RonnyPlaysGames around the web.</p>
+    <div class="social">
+      <div class="card">
+        <b>▶ YouTube</b>
+        <p>Your main gaming channel.</p>
+        <a href="https://www.youtube.com/@RonnyPlaysGames165" target="_blank">Open Channel →</a>
+      </div>
+      <div class="card">
+        <b>💬 Discord</b>
+        <p>No Discord as of now.</p>
+        <span class="badge-off">Coming Soon</span>
+      </div>
+      <div class="card">
+        <b>📱 Socials</b>
+        <p>No socials as of now.</p>
+        <span class="badge-off">Coming Soon</span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>© 2026 RonnyPlaysGames • Official creator website</footer>
+
+</body>
+</html>
